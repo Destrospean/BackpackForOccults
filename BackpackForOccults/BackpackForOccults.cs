@@ -29,9 +29,9 @@ namespace Destrospean
             {
                 Definition mDefinitionBase = new Definition();
 
-                public override string GetInteractionName(Sim actor, Backpack target, InteractionObjectPair iop)
+                public override string GetInteractionName(Sim actor, Backpack target, InteractionObjectPair interaction)
                 {
-                    return mDefinitionBase.GetInteractionName(actor, target, iop);
+                    return mDefinitionBase.GetInteractionName(actor, target, interaction);
                 }
 
                 public override bool Test(Sim actor, Backpack target, bool isAutonomous, ref GreyedOutTooltipCallback greyedOutTooltipCallback)
