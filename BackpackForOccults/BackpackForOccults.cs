@@ -6,7 +6,7 @@ using Sims3.Gameplay.Interactions;
 using Sims3.Gameplay.Objects;
 using Sims3.SimIFace;
 using Sims3.UI.Hud;
-using static Sims3.Gameplay.Destrospean.BackpackForOccults;
+using Tuning = Sims3.Gameplay.Destrospean.BackpackForOccults;
 
 namespace Destrospean
 {
@@ -91,34 +91,34 @@ namespace Destrospean
 
         public static bool HasDisallowedTransformation(Sim sim)
         {
-            return (sim.BuffManager.HasElement(BuffNames.Werewolf) && !kUsableInWerewolfForm) || (sim.BuffManager.HasAnyElement(BuffNames.Zombie, BuffNames.PermaZombie) && !kUsableForZombies);
+            return (sim.BuffManager.HasElement(BuffNames.Werewolf) && !Tuning.kUsableInWerewolfForm) || (sim.BuffManager.HasAnyElement(BuffNames.Zombie, BuffNames.PermaZombie) && !Tuning.kUsableForZombies);
         }
 
-        [ReplaceMethod(typeof(Backpack), nameof(Backpack.IsAllowedToUseBackpack))]
+        [ReplaceMethod(typeof(Backpack), "IsAllowedToUseBackpack")]
         public static bool IsAllowedToUseBackpack(Sim sim)
         {
             switch (sim.OccultManager.CurrentOccultTypes)
             {
                 case OccultTypes.Mummy:
-                    if (!kUsableForMummies)
+                    if (!Tuning.kUsableForMummies)
                     {
                         return false;
                     }
                     break;
                 case OccultTypes.Frankenstein:
-                    if (!kUsableForSimbots)
+                    if (!Tuning.kUsableForSimBots)
                     {
                         return false;
                     }
                     break;
                 case OccultTypes.Vampire:
-                    if (!kUsableForVampires)
+                    if (!Tuning.kUsableForVampires)
                     {
                         return false;
                     }
                     break;
                 case OccultTypes.ImaginaryFriend:
-                    if (!kUsableForImaginaryFriends)
+                    if (!Tuning.kUsableForImaginaryFriends)
                     {
                         return false;
                     }
@@ -126,25 +126,25 @@ namespace Destrospean
                 case OccultTypes.Unicorn:
                     return false;
                 case OccultTypes.Genie:
-                    if (!kUsableForGenies)
+                    if (!Tuning.kUsableForGenies)
                     {
                         return false;
                     }
                     break;
                 case OccultTypes.Ghost:
-                    if (!kUsableForGhosts)
+                    if (!Tuning.kUsableForGhosts)
                     {
                         return false;
                     }
                     break;
                 case OccultTypes.Fairy:
-                    if (!kUsableForFairies)
+                    if (!Tuning.kUsableForFairies)
                     {
                         return false;
                     }
                     break;
             }
-            return !(HasDisallowedTransformation(sim) || (sim.IsEP11Bot && !kUsableForPlumbots) || ((sim.SimDescription.IsGhost || sim.SimDescription.DeathStyle != 0) && !kUsableForGhosts) || sim.IsPet);
+            return !(HasDisallowedTransformation(sim) || (sim.IsEP11Bot && !Tuning.kUsableForPlumbots) || ((sim.SimDescription.IsGhost || sim.SimDescription.DeathStyle != 0) && !Tuning.kUsableForGhosts) || sim.IsPet);
         }
 
         static void OnPreLoad()
