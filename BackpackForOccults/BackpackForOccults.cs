@@ -24,7 +24,6 @@ namespace Destrospean
 
         public class UseBackpack : Backpack.UseBackpack
         {
-            [DoesntRequireTuning]
             public class DefinitionModified : ImmediateInteractionDefinition<Sim, Backpack, UseBackpack>
             {
                 Definition mDefinitionBase = new Definition();
