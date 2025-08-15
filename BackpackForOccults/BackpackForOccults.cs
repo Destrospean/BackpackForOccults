@@ -90,60 +90,13 @@ namespace Destrospean
 
         public static bool HasDisallowedTransformation(Sim sim)
         {
-            return (sim.BuffManager.HasElement(BuffNames.Werewolf) && !Tuning.kUsableInWerewolfForm) || (sim.BuffManager.HasAnyElement(BuffNames.Zombie, BuffNames.PermaZombie) && !Tuning.kUsableForZombies);
+            return sim.BuffManager.HasElement(BuffNames.Werewolf) && !Tuning.kUsableInWerewolfForm || sim.BuffManager.HasAnyElement(BuffNames.Zombie, BuffNames.PermaZombie) && !Tuning.kUsableForZombies;
         }
 
         [ReplaceMethod(typeof(Backpack), "IsAllowedToUseBackpack")]
         public static bool IsAllowedToUseBackpack(Sim sim)
         {
-            switch (sim.OccultManager.CurrentOccultTypes)
-            {
-                case OccultTypes.Mummy:
-                    if (!Tuning.kUsableForMummies)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.Frankenstein:
-                    if (!Tuning.kUsableForSimBots)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.Vampire:
-                    if (!Tuning.kUsableForVampires)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.ImaginaryFriend:
-                    if (!Tuning.kUsableForImaginaryFriends)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.Unicorn:
-                    return false;
-                case OccultTypes.Genie:
-                    if (!Tuning.kUsableForGenies)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.Ghost:
-                    if (!Tuning.kUsableForGhosts)
-                    {
-                        return false;
-                    }
-                    break;
-                case OccultTypes.Fairy:
-                    if (!Tuning.kUsableForFairies)
-                    {
-                        return false;
-                    }
-                    break;
-            }
-            return !(HasDisallowedTransformation(sim) || (sim.IsEP11Bot && !Tuning.kUsableForPlumbots) || ((sim.SimDescription.IsGhost || sim.SimDescription.DeathStyle != 0) && !Tuning.kUsableForGhosts) || sim.IsPet);
+            return !(sim.SimDescription.IsFairy && !Tuning.kUsableForFairies || sim.SimDescription.IsFrankenstein && !Tuning.kUsableForSimBots || sim.SimDescription.IsGenie && !Tuning.kUsableForGenies || sim.SimDescription.IsGhost && !Tuning.kUsableForGhosts || sim.SimDescription.IsImaginaryFriend && !Tuning.kUsableForImaginaryFriends || sim.SimDescription.IsMummy && !Tuning.kUsableForMummies || sim.SimDescription.IsVampire && !Tuning.kUsableForVampires || HasDisallowedTransformation(sim) || sim.IsEP11Bot && !Tuning.kUsableForPlumbots || (sim.SimDescription.IsGhost || sim.SimDescription.DeathStyle != 0) && !Tuning.kUsableForGhosts || sim.IsPet);
         }
 
         static void OnPreLoad()
