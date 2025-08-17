@@ -5,7 +5,6 @@ using Sims3.Gameplay.Autonomy;
 using Sims3.Gameplay.Interactions;
 using Sims3.Gameplay.Objects;
 using Sims3.SimIFace;
-using Sims3.UI.Hud;
 using Tuning = Sims3.Gameplay.Destrospean.BackpackForOccults;
 
 namespace Destrospean
